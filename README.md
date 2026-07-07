@@ -1,0 +1,1 @@
+esp32 micropython driver download link: https://micropython.org/resources/firmware/ESP32_GENERIC-20260406-v1.28.0.bin
