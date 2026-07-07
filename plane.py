@@ -14,6 +14,8 @@ wlan.active(True)
 esp = espnow.ESPNow()
 esp.active(True)
 
+SEA_LEVEL_PRESSURE = 1013.25 
+
 
 def map_value(x, in_min, in_max, out_min, out_max):
     return int((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min)
@@ -56,7 +58,9 @@ while True:
         print(f"Temperature: {temp_c:.2f} °C")
         print(f"Pressure: {pressure_hpa:.2f} hPa")
         print("----------------------------------\n")
-        
+        altitude = 44330.0 * (1.0 - pow(pressure_hpa / SEA_LEVEL_PRESSURE, 0.1903))
+        print(f"Altitude: {altitude:.2f} m")
+
     except Exception as e:
         print("Sensor error:", e)
         
