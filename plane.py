@@ -35,8 +35,27 @@ while True:
 
     try:
         heading, roll, pitch = imu.euler()
-        temp = baro.temperature
-        press = baro.pressure
+    
+        # BNO055 Vector Data (Acceleration, Linear Acceleration, Gravity)
+        accel = imu.accelerometer()
+        lin_accel = imu.linear_acceleration()
+        gravity = imu.gravity()
+        
+        # BMP280 Environmental Data
+        temp_c = baro.temperature
+        pressure_hpa = baro.pressure
+        
+        # Output to Serial/REPL
+        print("--- BNO055 IMU Data ---")
+        print(f"Euler Angles (H/R/P): {heading}° | {roll}° | {pitch}°")
+        print(f"Acceleration (X/Y/Z): {accel[0]} | {accel[1]} | {accel[2]} m/s²")
+        print(f"Linear Acceleration (X/Y/Z): {lin_accel[0]} | {lin_accel[1]} | {lin_accel[2]} m/s²")
+        print(f"Gravity (X/Y/Z): {gravity[0]} | {gravity[1]} | {gravity[2]} m/s²")
+        
+        print("\n--- BMP280 Environmental Data ---")
+        print(f"Temperature: {temp_c:.2f} °C")
+        print(f"Pressure: {pressure_hpa:.2f} hPa")
+        print("----------------------------------\n")
         
     except Exception as e:
         print("Sensor error:", e)
